@@ -1,6 +1,9 @@
 <template>
   <h1>List Norms</h1>
   <div style="padding: 10px">
+    <div style="float: right">
+      <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+    </div>
     <TreeList
       :style="{
         maxWidth: '700px',
