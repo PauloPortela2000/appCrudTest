@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>About</h2>
+    <h2>Audits</h2>
     <div>
       <p>
         So cuffed therefore by some sadistically mallard rewrote yet

@@ -1,29 +1,23 @@
-import { createWebHistory, createRouter } from "vue-router";
-import Home from "./Home";
-import About from "./About";
-import Products from "./Products";
-
+import { createWebHistory, createRouter } from 'vue-router';
+import Dashboard from './Dashboard';
+import ListAudit from './Audit/ListAudit';
 const routes = [
-    {
-        path: "/",
-        name: "Home",
-        component: Home
-    },
-    {
-        path: "/about",
-        name: "About",
-        component: About
-    },
-    {
-        path: "/products",
-        name: "Products",
-        component: Products
-    }
+  {
+    icon: 'k-i-pencil',
+    path: '/',
+    name: 'Dashboard',
+    component: Dashboard,
+  },
+  {
+    path: '/audit',
+    name: 'Audit',
+    component: ListAudit,
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;

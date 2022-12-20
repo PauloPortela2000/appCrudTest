@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Home page</h2>
+    <h2>DashBoard</h2>
     <div>
       <p>
         However engaging wherever growled much methodic shamefully more human

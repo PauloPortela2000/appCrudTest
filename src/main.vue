@@ -2,20 +2,38 @@
   <div>
     <div class="custom-toolbar">
       <kbutton :icon="'menu'" :fill-mode="'flat'" @click="handleClick" />
-      <span class="title">Go 360 Audit</span>
+      <span class="title">Categories</span>
     </div>
     <Drawer
+      :animation="false"
       :expanded="expanded"
       :position="position"
       :mode="mode"
-      :items="
-        items.map((item, index) => ({
-          ...item,
-          selected: index === selectedId,
-        }))
-      "
+      :mini="true"
+      :width="175"
+      :items="dataItems"
+      :item="'CustomItem'"
       @select="onSelect"
     >
+      <template v-slot:CustomItem="{ props }">
+        <DrawerItem
+          v-if="props.visible !== false"
+          v-bind="props"
+          @click="props.onClick"
+        >
+          <span :class="'k-icon ' + props.icon" />
+          <span class="k-item-text">{{ props.text }}</span>
+          <span
+            v-if="props['data-expanded'] !== undefined"
+            :class="props['data-expanded'] ? downClass : rightClass"
+            :style="{
+              position: 'absolute',
+              right: '10px',
+              visibility: expanded ? '' : 'hidden',
+            }"
+          />
+        </DrawerItem>
+      </template>
       <DrawerContent>
         <router-view />
       </DrawerContent>
@@ -24,48 +42,124 @@
 </template>
 
 <script>
-import { Drawer, DrawerContent } from '@progress/kendo-vue-layout';
+import { Drawer, DrawerContent, DrawerItem } from '@progress/kendo-vue-layout';
 import { Button } from '@progress/kendo-vue-buttons';
+import './styles.css';
 
 export default {
   name: 'App',
-  components: { Drawer, DrawerContent, kbutton: Button },
+  components: { Drawer, DrawerItem, DrawerContent, kbutton: Button },
   mounted() {
     this.$router.push(this.items[0].data);
   },
+  computed: {
+    dataItems() {
+      const newItems = this.items.map((item) => {
+        const { parentId, ...others } = item;
+        if (parentId !== undefined) {
+          const parent = this.items.find((parent) => parent.id === parentId);
+          return { ...others, visible: parent['data-expanded'] };
+        }
+        return item;
+      });
+      return newItems;
+    },
+  },
   data() {
     return {
+      downClass: 'k-icon k-i-arrow-chevron-down',
+      rightClass: 'k-icon k-i-arrow-chevron-right',
       items: [
         {
-          text: 'Home',
+          text: 'Dashboard',
+          icon: 'k-i-grid',
+          id: 1,
           selected: true,
           data: {
             path: '/',
           },
         },
         {
-          text: 'Products',
+          separator: true,
+        },
+        {
+          text: 'Audits',
+          icon: 'k-i-heart',
+          id: 2,
+          ['data-expanded']: true,
           data: {
-            path: '/products',
+            path: '/audit',
           },
         },
         {
-          text: 'About',
+          text: 'List',
+          icon: 'k-i-minus',
+          id: 4,
+          parentId: 2,
           data: {
-            path: '/about',
+            path: '/food/japanese',
+          },
+        },
+        {
+          separator: true,
+        },
+        {
+          text: 'Travel',
+          icon: 'k-i-globe-outline',
+          ['data-expanded']: true,
+          id: 3,
+          data: {
+            path: '/travel',
+          },
+        },
+        {
+          text: 'Europe',
+          icon: 'k-i-minus',
+          id: 6,
+          parentId: 3,
+          data: {
+            path: '/travel/europe',
+          },
+        },
+        {
+          text: 'North America',
+          icon: 'k-i-minus',
+          id: 7,
+          parentId: 3,
+          data: {
+            path: '/travel/america',
           },
         },
       ],
       expanded: true,
-      selectedId: 0,
       position: 'start',
       mode: 'push',
     };
   },
   methods: {
-    onSelect(e) {
-      this.selectedId = e.itemIndex;
-      this.$router.push(this.items[e.itemIndex].data);
+    onSelect(ev) {
+      const currentItem = ev.itemTarget.props;
+      const isParent = currentItem['data-expanded'] !== undefined;
+      const nextExpanded = !currentItem['data-expanded'];
+      const newData = this.items.map((item) => {
+        const {
+          selected,
+          ['data-expanded']: currentExpanded,
+          id,
+          ...others
+        } = item;
+        const isCurrentItem = currentItem.id === id;
+        return {
+          selected: isCurrentItem,
+          ['data-expanded']:
+            isCurrentItem && isParent ? nextExpanded : currentExpanded,
+          id,
+          ...others,
+        };
+      });
+      this.$router.push(this.items[ev.itemIndex].data);
+
+      this.items = newData;
     },
     handleClick() {
       this.expanded = !this.expanded;
