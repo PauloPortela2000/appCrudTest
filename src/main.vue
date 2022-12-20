@@ -98,7 +98,7 @@ export default {
           parentId: 2,
 
           data: {
-            path: '/food/japanese',
+            path: '/createsubcontrols',
           },
         },
         {

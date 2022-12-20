@@ -1,45 +1,85 @@
 <template>
-  <div>
-    <h2>Create Subcontrols</h2>
-    <div>
-      <p>
-        However engaging wherever growled much methodic shamefully more human
-        agreeable gracefully and less equitable insistent gasped that when wasp
-        baboon rebuilt more slept stingily along knew llama.
-      </p>
-      <p>
-        Prim crud far healthy wholesomely more far chortled ouch in adroitly
-        gawked affably reasonably manfully reindeer mysteriously overpaid
-        considering far far until.
-      </p>
-      <p>
-        Red-handed off thickly save aboard mawkishly that amidst moth pending
-        jerkily monogamous some much or creatively indecent neat far jeepers up
-        spoiled about.
-      </p>
-      <p>
-        Owing desperate like one shark or bit yikes up so thus grumbled gosh
-        more bawled much and regardless hey far bought through crud well
-        staunchly hysteric inside incorrect the closed.
-      </p>
-      <p>
-        Industrious jubilant blanched bestially yet that less far far a wow the
-        militant preparatory crudely acrimonious under a towards lemur wedded
-        that while decorously this peered darn a much.
-      </p>
-      <p>
-        Dizzy boundless hence but because moodily and alas a truculently less
-        hardheaded so on ambiguously incompetently less moaned hilarious until
-        one jeepers amid heinously.
-      </p>
-      <p>
-        Where beneath less misspelled across artistically spiteful jeepers much
-        more that when blushed a much a this groundhog therefore far arduous
-        dependent much satanic where dear goodness hummingbird.
-      </p>
+  <div class="row example-wrapper">
+    <div class="col-xs-12 col-sm-6 offset-sm-3 example-col">
+      <div class="card">
+        <div class="card-block">
+          <form class="k-form" @submit="handleSubmit">
+            <fieldset>
+              <legend>Create new account:</legend>
+              <div class="mb-3">
+                <k-input
+                  :name="'username'"
+                  :label="'First Name'"
+                  :pattern="'[A-Za-z]+'"
+                  :min-length="2"
+                  :required="true"
+                >
+                </k-input>
+              </div>
+              <div class="mb-3">
+                <k-input
+                  :name="'password'"
+                  type="password"
+                  :label="'Password'"
+                  :required="true"
+                  :min-length="6"
+                  :max-length="18"
+                />
+              </div>
+              <div class="mb-3">
+                <k-input
+                  :name="'confirmPassword'"
+                  :type="'password'"
+                  :label="'Confirm Password'"
+                  :min-length="6"
+                  :max-length="18"
+                />
+              </div>
+              <div class="mb-3">
+                <k-input
+                  :name="'email'"
+                  :type="'email'"
+                  :label="'Email address'"
+                  :required="true"
+                />
+              </div>
+            </fieldset>
+            <kbutton type="submit" :theme-color="'primary'">Search</kbutton>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="success"
+      class="alert alert-success"
+      :style="{ position: 'absolute' }"
+    >
+      Form submitted!
     </div>
   </div>
 </template>
 <script>
-export default {};
+import { Input } from '@progress/kendo-vue-inputs';
+import { Button } from '@progress/kendo-vue-buttons';
+
+export default {
+  components: {
+    'k-input': Input,
+    kbutton: Button,
+  },
+  data: function () {
+    return {
+      success: false,
+    };
+  },
+  methods: {
+    handleSubmit(event) {
+      event.preventDefault();
+      this.success = true;
+      setTimeout(() => {
+        this.success = false;
+      }, 3000);
+    },
+  },
+};
 </script>
