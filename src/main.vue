@@ -10,7 +10,7 @@
       :position="position"
       :mode="mode"
       :mini="true"
-      :width="175"
+      :width="200"
       :items="dataItems"
       :item="'CustomItem'"
       @select="onSelect"
@@ -84,7 +84,7 @@ export default {
         },
         {
           text: 'Audits',
-          icon: 'k-i-heart',
+          icon: 'k-i-subreport',
           id: 2,
           ['data-expanded']: true,
           data: {
@@ -92,10 +92,11 @@ export default {
           },
         },
         {
-          text: 'List',
+          text: 'Create',
           icon: 'k-i-minus',
           id: 4,
           parentId: 2,
+
           data: {
             path: '/food/japanese',
           },
@@ -104,7 +105,7 @@ export default {
           separator: true,
         },
         {
-          text: 'Travel',
+          text: 'Entities Manager',
           icon: 'k-i-globe-outline',
           ['data-expanded']: true,
           id: 3,
@@ -113,7 +114,7 @@ export default {
           },
         },
         {
-          text: 'Europe',
+          text: 'Norms',
           icon: 'k-i-minus',
           id: 6,
           parentId: 3,
@@ -122,7 +123,16 @@ export default {
           },
         },
         {
-          text: 'North America',
+          text: 'Controls',
+          icon: 'k-i-minus',
+          id: 7,
+          parentId: 3,
+          data: {
+            path: '/travel/america',
+          },
+        },
+        {
+          text: 'Subcontrols',
           icon: 'k-i-minus',
           id: 7,
           parentId: 3,
