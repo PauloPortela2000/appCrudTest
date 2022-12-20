@@ -1,49 +1,162 @@
 <template>
-  <div>
-    <h2>Norms</h2>
-    <div>
-      <p>
-        So cuffed therefore by some sadistically mallard rewrote yet
-        accommodatingly more cat adequate pesky far this dear fitting and
-        groundhog horse some selfish jeepers juggled about since upheld heatedly
-        well much.
-      </p>
-      <p>
-        Therefore falcon usefully crab during onto hello regally rat wiped
-        misread reluctant unlike iguanodon fish far bald abjectly far chameleon
-        more scurrilous gagged virtuously sufficient arrogant cobra froze dog
-        waywardly staunch thus consoled.
-      </p>
-      <p>
-        Amphibious darn well densely far meanly inanimately incoherent away
-        flamingo outside yet jeez that yawned secret evasive dear overrode rat
-        cow one overpaid far hatchet much.
-      </p>
-      <p>
-        Had aerial well well coasted darn chuckled studied underlay fatally the
-        but among because patient or shook depending much sloth wetted cheered
-        some bee.
-      </p>
-      <p>
-        Bombastically yikes some coquettish erroneously in therefore
-        disgracefully glanced some connected and goodness more read marvelous up
-        one rebukingly darn fuzzily.
-      </p>
-      <p>
-        Meadowlark and hence regarding flaunting amongst steadfastly demurely
-        like far and stiffly bled reluctant alongside jeez this save opposite
-        well and this shuddered and smoked wherever condescendingly hey onto
-        much.
-      </p>
-      <p>
-        Hello gosh gosh up effortlessly valiant hotly less rubbed gerbil and
-        ouch inside fatuous suitably far fuzzily unihibitedly locked froze
-        timidly hello much revealed lorikeet lantern this much one and far
-        decidedly.
-      </p>
-    </div>
+  <h1>List Norms</h1>
+  <div style="padding: 10px">
+    <TreeList
+      :style="{
+        maxWidth: '700px',
+        maxHeight: '510px',
+        overflow: 'auto',
+      }"
+      :expand-field="expandField"
+      :sub-items-field="subItemsField"
+      :data-items="processedData"
+      :columns="columns"
+      :filter="filter"
+      :filterable="true"
+      :sort="sort"
+      :sortable="true"
+      @datastatechange="handleDataStateChange"
+      @expandchange="onExpandChange"
+    >
+      <template v-slot:myCellTemplate="{ props }">
+        <td>
+          <span>
+            {{ props.value }}
+          </span>
+        </td>
+      </template>
+      <template v-slot:myCellEditorTemplate="{ props }">
+        <td>
+          <KButton :theme-color="'primary'" @click="save"> Edit </KButton>
+        </td>
+      </template>
+      <template v-slot:zeroColumnCellTemplate="{ props }">
+        <td
+          :class="props.class"
+          :colspan="props.colSpan"
+          :aria-colindex="props['aria-colindex']"
+          :aria-expanded="props['aria-expanded']"
+          :aria-selected="props['aria-selected']"
+          :role="props.role"
+          :data-grid-col-index="props['data-grid-col-index']"
+        >
+          <span
+            class="k-icon k-i-none"
+            v-for="(iteration, index) in props.level.slice(1)"
+          ></span>
+          <span
+            :class="[
+              'k-icon',
+              props['aria-expanded']
+                ? 'k-i-caret-alt-down'
+                : props.dataItem['employees']
+                ? 'k-i-caret-alt-right'
+                : '',
+            ]"
+            @click="
+              onExpandChange({
+                dataItem: props.dataItem,
+                value: props['aria-expanded'],
+              })
+            "
+            :data-prevent-selection="true"
+          ></span>
+          <b style="color: brown">{{ props.value }}</b>
+        </td>
+      </template>
+    </TreeList>
   </div>
 </template>
+
 <script>
-export default {};
+import controls from './data';
+import { Button } from '@progress/kendo-vue-buttons';
+import {
+  TreeList,
+  filterBy,
+  orderBy,
+  mapTree,
+  extendDataItem,
+} from '@progress/kendo-vue-treelist';
+
+export default {
+  components: {
+    TreeList,
+    KButton: Button,
+  },
+  data() {
+    return {
+      controls,
+      subItemsField: 'subcontrols',
+      expandField: 'expanded',
+      expanded: [1, 2],
+      filter: [],
+      sort: [
+        {
+          field: 'title',
+          dir: 'asc',
+        },
+      ],
+      columns: [
+        {
+          field: 'id',
+          title: 'ID',
+          width: '30px',
+          editor: 'text',
+          expandable: true,
+        },
+        {
+          field: 'title',
+          title: 'Title',
+          width: '280px',
+          editor: 'text',
+          expandable: true,
+          cell: 'myCellTemplate',
+        },
+        {
+          field: 'audit',
+          title: 'Actions',
+          width: '80px',
+          editor: 'text',
+          expandable: true,
+          cell: 'myCellEditorTemplate',
+        },
+      ],
+    };
+  },
+  computed: {
+    processedData() {
+      let data = this.controls;
+      let filteredData = filterBy(data, this.filter, this.subItemsField);
+      let sortedData = orderBy(filteredData, this.sort, this.subItemsField);
+      return this.addExpandField(sortedData);
+    },
+  },
+  methods: {
+    getIndent(id) {
+      const level = id.filter((el) => el === '.').length;
+      return level;
+    },
+    onExpandChange(e) {
+      this.expanded = e.value
+        ? this.expanded.filter((id) => id !== e.dataItem.id)
+        : [...this.expanded, e.dataItem.id];
+    },
+    createAppState: function (dataState) {
+      this.sort = dataState.sort;
+      this.filter = dataState.filter;
+    },
+    handleDataStateChange: function (event) {
+      this.createAppState(event.data);
+    },
+    addExpandField(dataTree) {
+      const expanded = this.expanded;
+      return mapTree(dataTree, this.subItemsField, (item) =>
+        extendDataItem(item, this.subItemsField, {
+          [this.expandField]: expanded.includes(item.id),
+        })
+      );
+    },
+  },
+};
 </script>
