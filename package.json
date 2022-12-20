@@ -1,0 +1,15 @@
+{
+  "name": "aezvhw--run",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "vue": "3.2.45",
+    "@progress/kendo-vue-layout": "3.7.3",
+    "@progress/kendo-licensing": "1.2.2",
+    "@progress/kendo-vue-intl": "3.7.3",
+    "@progress/kendo-vue-animation": "3.7.3",
+    "@progress/kendo-vue-progressbars": "3.7.3",
+    "@progress/kendo-vue-buttons": "3.7.3",
+    "vue-router": "4.1.6"
+  }
+}
