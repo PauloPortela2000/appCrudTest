@@ -5,7 +5,7 @@
         <div class="card-block">
           <form class="k-form" @submit="handleSubmit">
             <fieldset>
-              <legend>Create new account:</legend>
+              <legend>Create new Subcontrol:</legend>
               <div class="mb-3">
                 <k-input
                   :name="'username'"
