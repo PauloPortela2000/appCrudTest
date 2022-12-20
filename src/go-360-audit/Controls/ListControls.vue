@@ -3,7 +3,12 @@
     <h1>List Controls</h1>
     <div class="text-right">
       <div style="padding-right: 40px">
-        <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+       <router-link
+      to="/createsubcontrols"
+      custom
+      v-slot="{ navigate }"
+    >
+        <KButton :theme-color="'primary'" @click="navigate"> Create</KButton>
       </div>
     </div>
     <center>
