@@ -106,11 +106,11 @@ export default {
         },
         {
           text: 'Entities Manager',
-          icon: 'k-i-globe-outline',
+          icon: 'k-i-parameters',
           ['data-expanded']: true,
           id: 3,
           data: {
-            path: '/travel',
+            path: '/norms',
           },
         },
         {
@@ -119,7 +119,7 @@ export default {
           id: 6,
           parentId: 3,
           data: {
-            path: '/travel/europe',
+            path: '/norms',
           },
         },
         {
@@ -128,16 +128,16 @@ export default {
           id: 7,
           parentId: 3,
           data: {
-            path: '/travel/america',
+            path: '/controls',
           },
         },
         {
           text: 'Subcontrols',
           icon: 'k-i-minus',
-          id: 7,
+          id: 8,
           parentId: 3,
           data: {
-            path: '/travel/america',
+            path: '/subcontrols',
           },
         },
       ],

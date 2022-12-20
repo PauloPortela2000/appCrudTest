@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Dashboard from './Dashboard';
-import ListAudit from './Audit/ListAudit';
+import ListAudit from '../../Audit/ListAudit';
+import ListNorms from '../../Norms/ListNorms';
 const routes = [
   {
     icon: 'k-i-pencil',
@@ -12,6 +13,11 @@ const routes = [
     path: '/audit',
     name: 'Audit',
     component: ListAudit,
+  },
+  {
+    path: '/norms',
+    name: 'Norms',
+    component: ListNorms,
   },
 ];
 
