@@ -4,7 +4,7 @@
     <TreeList
       :style="{
         maxWidth: '700px',
-        maxHeight: '510px',
+        maxHeight: '700px',
         overflow: 'auto',
       }"
       :expand-field="expandField"
@@ -89,7 +89,7 @@ export default {
       controls,
       subItemsField: 'subcontrols',
       expandField: 'expanded',
-      expanded: [1, 2],
+      expanded: [1],
       filter: [],
       sort: [
         {
