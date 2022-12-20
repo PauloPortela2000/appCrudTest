@@ -1,78 +1,79 @@
 <template>
-<div class="container">
-  <!-- Content here -->
-  <h1>List Subcontrols</h1>
-    <div >
-      <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+  <div class="container">
+    <h1>List Subcontrols</h1>
+    <div class="text-right">
+      <div style="padding-right: 40px">
+        <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+      </div>
     </div>
-    </br>
-     <div >
-    <TreeList
-      :style="{
-        maxWidth: '700px',
-        maxHeight: '510px',
-        overflow: 'auto',
-      }"
-      :expand-field="expandField"
-      :sub-items-field="subItemsField"
-      :data-items="processedData"
-      :columns="columns"
-      :filter="filter"
-      :filterable="true"
-      :sort="sort"
-      :sortable="true"
-      @datastatechange="handleDataStateChange"
-      @expandchange="onExpandChange"
-    >
-      <template v-slot:myCellTemplate="{ props }">
-        <td>
-          <span>
-            {{ props.value }}
-          </span>
-        </td>
-      </template>
-      <template v-slot:myCellEditorTemplate="{ props }">
-        <td>
-          <KButton :theme-color="'primary'" @click="save"> Edit </KButton>
-        </td>
-      </template>
-      <template v-slot:zeroColumnCellTemplate="{ props }">
-        <td
-          :class="props.class"
-          :colspan="props.colSpan"
-          :aria-colindex="props['aria-colindex']"
-          :aria-expanded="props['aria-expanded']"
-          :aria-selected="props['aria-selected']"
-          :role="props.role"
-          :data-grid-col-index="props['data-grid-col-index']"
+    <center>
+      <div style="padding-top: 10px">
+        <TreeList
+          :style="{
+            maxWidth: '700px',
+            maxHeight: '510px',
+            overflow: 'auto',
+          }"
+          :expand-field="expandField"
+          :sub-items-field="subItemsField"
+          :data-items="processedData"
+          :columns="columns"
+          :filter="filter"
+          :filterable="true"
+          :sort="sort"
+          :sortable="true"
+          @datastatechange="handleDataStateChange"
+          @expandchange="onExpandChange"
         >
-          <span
-            class="k-icon k-i-none"
-            v-for="(iteration, index) in props.level.slice(1)"
-          ></span>
-          <span
-            :class="[
-              'k-icon',
-              props['aria-expanded']
-                ? 'k-i-caret-alt-down'
-                : props.dataItem['employees']
-                ? 'k-i-caret-alt-right'
-                : '',
-            ]"
-            @click="
-              onExpandChange({
-                dataItem: props.dataItem,
-                value: props['aria-expanded'],
-              })
-            "
-            :data-prevent-selection="true"
-          ></span>
-          <b style="color: brown">{{ props.value }}</b>
-        </td>
-      </template>
-
-    </TreeList>
-     </div>
+          <template v-slot:myCellTemplate="{ props }">
+            <td>
+              <span>
+                {{ props.value }}
+              </span>
+            </td>
+          </template>
+          <template v-slot:myCellEditorTemplate="{ props }">
+            <td>
+              <KButton :theme-color="'primary'" @click="save"> Edit </KButton>
+            </td>
+          </template>
+          <template v-slot:zeroColumnCellTemplate="{ props }">
+            <td
+              :class="props.class"
+              :colspan="props.colSpan"
+              :aria-colindex="props['aria-colindex']"
+              :aria-expanded="props['aria-expanded']"
+              :aria-selected="props['aria-selected']"
+              :role="props.role"
+              :data-grid-col-index="props['data-grid-col-index']"
+            >
+              <span
+                class="k-icon k-i-none"
+                v-for="(iteration, index) in props.level.slice(1)"
+              ></span>
+              <span
+                :class="[
+                  'k-icon',
+                  props['aria-expanded']
+                    ? 'k-i-caret-alt-down'
+                    : props.dataItem['employees']
+                    ? 'k-i-caret-alt-right'
+                    : '',
+                ]"
+                @click="
+                  onExpandChange({
+                    dataItem: props.dataItem,
+                    value: props['aria-expanded'],
+                  })
+                "
+                :data-prevent-selection="true"
+              ></span>
+              <b style="color: brown">{{ props.value }}</b>
+            </td>
+          </template>
+        </TreeList>
+      </div>
+    </center>
   </div>
 </template>
 

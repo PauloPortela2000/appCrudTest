@@ -1,9 +1,13 @@
 <template>
-  <h1>List Norms</h1>
-  <div style="padding: 10px">
-    <div style="float: right">
-      <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+   <div class="container">
+    <h1>List Norms</h1>
+    <div class="text-right">
+      <div style="padding-right: 40px">
+        <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+      </div>
     </div>
+    <center>
+	 <div style="padding-top: 10px">
     <TreeList
       :style="{
         maxWidth: '700px',
@@ -68,6 +72,9 @@
         </td>
       </template>
     </TreeList>
+  </div>
+    </div>
+    </center>
   </div>
 </template>
 
