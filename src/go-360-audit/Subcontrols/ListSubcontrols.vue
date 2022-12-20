@@ -1,6 +1,12 @@
 <template>
+<div class="container">
+  <!-- Content here -->
   <h1>List Subcontrols</h1>
-  <div style="padding: 10px">
+    <div >
+      <KButton :theme-color="'primary'" @click="create"> Create</KButton>
+    </div>
+    </br>
+     <div >
     <TreeList
       :style="{
         maxWidth: '700px',
@@ -64,7 +70,9 @@
           <b style="color: brown">{{ props.value }}</b>
         </td>
       </template>
+
     </TreeList>
+     </div>
   </div>
 </template>
 

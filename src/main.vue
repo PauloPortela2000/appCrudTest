@@ -74,7 +74,7 @@ export default {
           text: 'Dashboard',
           icon: 'k-i-grid',
           id: 1,
-          selected: true,
+
           data: {
             path: '/',
           },
@@ -135,6 +135,7 @@ export default {
           text: 'Subcontrols',
           icon: 'k-i-minus',
           id: 8,
+          selected: true,
           parentId: 3,
           data: {
             path: '/subcontrols',
