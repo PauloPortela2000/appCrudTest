@@ -10,7 +10,7 @@
 	 <div style="padding-top: 10px">
     <TreeList
       :style="{
-        maxWidth: '700px',
+        maxWidth: '900px',
         maxHeight: '700px',
         overflow: 'auto',
       }"
@@ -103,7 +103,7 @@ export default {
       filter: [],
       sort: [
         {
-          field: 'title',
+          field: 'id',
           dir: 'asc',
         },
       ],
@@ -118,7 +118,15 @@ export default {
         {
           field: 'title',
           title: 'Title',
-          width: '280px',
+          width: '500px',
+          editor: 'text',
+          expandable: true,
+          cell: 'myCellTemplate',
+        },
+	{
+          field: 'idioma',
+          title: 'Language',
+          width: '100px',
           editor: 'text',
           expandable: true,
           cell: 'myCellTemplate',
@@ -126,7 +134,7 @@ export default {
         {
           field: 'audit',
           title: 'Actions',
-          width: '80px',
+          width: '100px',
           editor: 'text',
           expandable: true,
           cell: 'myCellEditorTemplate',
