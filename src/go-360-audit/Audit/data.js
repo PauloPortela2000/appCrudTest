@@ -7,16 +7,12 @@ const controls = [
     maturityExpected: 5,
     subcontrols: [
       {
-        id: 2,
+        id: 1,
         title: 'CIS CONTROLS V7.1- 0001',
-        subcontrols: [
-          {
-            id: 3,
-            title: 'Matriz de Maturidade - 0001',
-            maturityAtual: 2,
-            maturityExpected: 5,
-          },
-        ],
+      },
+      {
+        id: 2,
+        title: 'ISO/IEC 27001',
       },
     ],
   },

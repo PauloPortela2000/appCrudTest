@@ -98,7 +98,7 @@ export default {
           parentId: 2,
 
           data: {
-            path: '/createsubcontrols',
+            path: '/createaudit',
           },
         },
         {

@@ -34,7 +34,12 @@
           </template>
           <template v-slot:myCellEditorTemplate="{ props }">
             <td>
-              <KButton :theme-color="'primary'" @click="save"> Edit </KButton>
+              <router-link
+      to="/editaudit"
+      custom
+      v-slot="{ navigate }"
+    >
+        <KButton :theme-color="'primary'" @click="navigate"> Edit</KButton>
             </td>
           </template>
           <template v-slot:zeroColumnCellTemplate="{ props }">
